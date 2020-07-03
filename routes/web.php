@@ -16,3 +16,13 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::prefix('pertanyaan')->group(function () {
+    Route::get('/', 'PertanyaanController@index');
+    Route::get('/create', 'PertanyaanController@create');
+    Route::post('/', 'PertanyaanController@store');
+});
+Route::prefix('jawaban')->group(function () {
+    Route::get('/{pertanyaan_id}', 'JawabanController@index');
+    Route::post('/{pertanyaan_id}', 'JawabanController@store');
+});
