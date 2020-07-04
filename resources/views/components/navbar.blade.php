@@ -1,8 +1,8 @@
-<div>
+<div class="sticky-top">
     <!-- An unexamined life is not worth living. - Socrates -->
     <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm">
     <div class="container">    
-        <a class="navbar-brand" href="#">Sanber forum</a>
+        <a class="navbar-brand" href="/">Sanber forum</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -17,7 +17,7 @@
                 </li>
             </ul>
             <form class="form-inline my-2 my-lg-0">
-                <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+                <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" style="border-radius: 20px !important;">
                 <button class="btn btn-outline-primary my-2 my-sm-0" type="submit">Search</button>
             </form>
         </div>

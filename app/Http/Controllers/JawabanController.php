@@ -42,6 +42,7 @@ class JawabanController extends Controller
 		DB::table('jawabans')->insert([
 			'isi' => $request->isi,
 			'pertanyaan_id' => $id,
+			'created_at' => now(),
 		]);
 		// alihkan halaman ke halaman pertanyaan
 		return redirect('/jawaban/'.$id);

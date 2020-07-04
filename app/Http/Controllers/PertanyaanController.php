@@ -17,7 +17,7 @@ class PertanyaanController extends Controller
         // mengambil data dari table pertanyaans
 		$data = DB::table('pertanyaans')->get();
  
-    	// mengirim data pegawai ke view index pertanyaan
+    	// mengirim data pertanyaan ke view index pertanyaan
         return view('pertanyaan.idx_pertanyaan', ['data' => $data]);
     }
 
@@ -43,6 +43,7 @@ class PertanyaanController extends Controller
 		DB::table('pertanyaans')->insert([
 			'judul' => $request->judul,
 			'isi' => $request->isi,
+			'created_at' => now(),
 		]);
 		// alihkan halaman ke halaman pertanyaan
 		return redirect('/pertanyaan');
@@ -56,7 +57,9 @@ class PertanyaanController extends Controller
      */
     public function show($id)
     {
-        //
+        $pertanyaan = DB::table('pertanyaans')->find($id);
+        $jawaban = DB::table('jawabans')->where('pertanyaan_id', $id)->get();
+        return view('pertanyaan.detail_pertanyaan', ['pertanyaan' => $pertanyaan, 'jawaban' => $jawaban]);
     }
 
     /**
@@ -67,7 +70,9 @@ class PertanyaanController extends Controller
      */
     public function edit($id)
     {
-        //
+        $data = DB::table('pertanyaans')->find($id);
+    	// mengirim data pertanyaan ke view edit pertanyaan
+        return view('pertanyaan.edit_pertanyaan', ['data' => $data]);
     }
 
     /**
@@ -79,7 +84,14 @@ class PertanyaanController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        // update data pertanyaan
+		DB::table('pertanyaans')->where('id',$id)->update([
+			'judul' => $request->judul,
+			'isi' => $request->isi,
+			'updated_at' => now()
+		]);
+		// alihkan halaman ke halaman pertanyaan
+		return redirect('/pertanyaan/'.$id);
     }
 
     /**
@@ -90,6 +102,10 @@ class PertanyaanController extends Controller
      */
     public function destroy($id)
     {
-        //
+        // menghapus data pertanyaan berdasarkan id yang dipilih
+		DB::table('pertanyaans')->where('id',$id)->delete();
+		
+		// alihkan halaman ke halaman pertanyaan
+		return redirect('/pertanyaan');
     }
 }
