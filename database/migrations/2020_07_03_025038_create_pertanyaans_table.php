@@ -15,14 +15,14 @@ class CreatePertanyaansTable extends Migration
     {
         Schema::create('pertanyaans', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->constrained('users')->onDelete('cascade');;
+            $table->foreignId('user_id')->constrained('users')->onDelete('cascade')->nullable();
             $table->string('judul');
             $table->string('isi');
             $table->timestamps();
-            $table->integer('like')->nullable();
-            $table->integer('dislike')->nullable();
-            $table->integer('vote')->nullable();
-            $table->foreignId('jawaban_tepat_id');
+            $table->integer('like')->default(0);
+            $table->integer('dislike')->default(0);
+            $table->integer('vote')->default(0);
+            $table->foreignId('jawaban_tepat_id')->nullable();
 
             // $table->foreign('user_id')->references('id')->on('users');
             // $table->foreign('jawaban_tepat_id')->references('id')->on('jawabans');

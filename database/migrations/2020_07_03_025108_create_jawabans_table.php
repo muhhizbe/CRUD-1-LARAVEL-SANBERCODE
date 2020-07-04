@@ -16,12 +16,12 @@ class CreateJawabansTable extends Migration
         Schema::create('jawabans', function (Blueprint $table) {
             $table->id();
             $table->foreignId('pertanyaan_id')->constrained('pertanyaans')->onDelete('cascade');;
-            $table->foreignId('user_id')->constrained('users')->onDelete('cascade');;
+            $table->foreignId('user_id')->constrained('users')->onDelete('cascade')->nullable();
             $table->string('isi');
             $table->timestamps();
-            $table->integer('like')->nullable();
-            $table->integer('dislike')->nullable();
-            $table->integer('vote')->nullable();
+            $table->integer('like')->default(0);
+            $table->integer('dislike')->default(0);
+            $table->integer('vote')->default(0);
 
             // $table->foreign('user_id')->references('id')->on('users');
             // $table->foreign('pertanyaan_id')->references('id')->on('pertanyaans');
