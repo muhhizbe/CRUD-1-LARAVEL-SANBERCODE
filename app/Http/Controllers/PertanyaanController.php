@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class PertanyaanController extends Controller
 {
@@ -13,7 +14,11 @@ class PertanyaanController extends Controller
      */
     public function index()
     {
-        return view('pertanyaan.idx_pertanyaan');
+        // mengambil data dari table pertanyaans
+		$data = DB::table('pertanyaans')->get();
+ 
+    	// mengirim data pegawai ke view index pertanyaan
+        return view('pertanyaan.idx_pertanyaan', ['data' => $data]);
     }
 
     /**
@@ -34,7 +39,13 @@ class PertanyaanController extends Controller
      */
     public function store(Request $request)
     {
-        
+        // insert data ke table pertanyaan
+		DB::table('pertanyaans')->insert([
+			'judul' => $request->judul,
+			'isi' => $request->isi,
+		]);
+		// alihkan halaman ke halaman pertanyaan
+		return redirect('/pertanyaan');
     }
 
     /**

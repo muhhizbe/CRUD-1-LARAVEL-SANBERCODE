@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use App\Models\Jawaban;
 
 class JawabanController extends Controller
 {
@@ -11,9 +13,11 @@ class JawabanController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index($id)
     {
-        return view('jawaban.idx_jawaban');
+        $pertanyaan = DB::table('pertanyaans')->find($id);
+        $jawaban = DB::table('jawabans')->where('pertanyaan_id', $id)->get();
+        return view('jawaban.idx_jawaban', ['pertanyaan' => $pertanyaan, 'jawaban' => $jawaban]);
     }
 
     /**
@@ -23,7 +27,7 @@ class JawabanController extends Controller
      */
     public function create()
     {
-        //
+        
     }
 
     /**
@@ -32,9 +36,15 @@ class JawabanController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request, $id)
     {
-        
+        // insert data ke table pertanyaan
+		DB::table('jawabans')->insert([
+			'isi' => $request->isi,
+			'pertanyaan_id' => $id,
+		]);
+		// alihkan halaman ke halaman pertanyaan
+		return redirect('/jawaban/'.$id);
     }
 
     /**
